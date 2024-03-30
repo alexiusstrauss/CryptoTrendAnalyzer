@@ -26,7 +26,10 @@ build:
 	docker build -t cryptotrendanalyzer-api:latest .
 
 up: build
-	docker compose --profile celery up
+	docker compose up -d
+
+up-log: up
+	docker logs -f cryptotrendanalyzer-api
 
 down:
 	docker compose down
