@@ -12,7 +12,10 @@ env = environ.Env(
     DJANGO_PROJECT_NAME=(str, "CryptoTrendAnalyzer-api"),
 )
 
-DATABASE_URL = env.db()
+try:
+    DATABASE_URL = env.db()
+except environ.ImproperlyConfigured:
+    DATABASE_URL = None
 
 
 SECRET_KEY = env("SECRET_KEY", default="Chageme-default-secret-kay$$$")
@@ -41,7 +44,7 @@ ALLOWED_HOSTS = ["*"]
 
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
+    # "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -54,6 +57,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "debug_toolbar",
     # Apps
+    "src.apps.market_trends",
     "src.apps.system",
 ]
 
@@ -136,7 +140,7 @@ TIME_ZONE = "America/Sao_Paulo"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -156,3 +160,6 @@ SWAGGER_SETTINGS = {
     "JSON_EDITOR": True,
     "DEFAULT_MODEL_DEPTH": -1,  # Esconde seção models na UI
 }
+
+# Especifica os esquemas permitidos no ambiente de desenvolvimento
+REST_FRAMEWORK_SCHEMAS = ["http"]

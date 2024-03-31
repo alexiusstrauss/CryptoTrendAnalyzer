@@ -5,6 +5,7 @@ from .views import HealthCheckView
 
 router = routers.DefaultRouter()
 
+
 urlpatterns = [
     path("healthcheck", HealthCheckView.as_view(), name='health_check'),
 ]

@@ -25,6 +25,7 @@ services:
     command: sh -c "pipenv run python manage.py collectstatic --noinput &&
       pipenv run python manage.py makemigrations --noinput &&
       pipenv run python manage.py migrate --noinput &&
+      pipenv run python manage.py load_market_data &&
       pipenv run python manage.py runserver 0.0.0.0:8000"
     # command: tail -f /dev/null
     volumes:
