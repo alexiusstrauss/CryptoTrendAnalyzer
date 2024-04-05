@@ -45,6 +45,7 @@ urlpatterns = [
     # path("admin/", admin.site.urls),
     path("api/", include("rest_framework.urls")),
     path("api/", include("src.apps.system.api.v1.urls")),
+    path('market_trends/', include('src.apps.market_trends.api.urls')),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
     path("swagger<format>/", schema_view.without_ui(cache_timeout=0), name="schema-json"),
     path(
