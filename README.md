@@ -54,6 +54,10 @@ Para facilitar o desenvolvimento e a implantação, este projeto foi dockerizado
 - `make test-cov-report`: Gera um relatório detalhado da cobertura de testes em formato HTML.
 
 
+## Iniciando a aplicação com Docker
+- rode o comando `make setup` para criação do .env na pasta app
+- rode o comando `make up-log` e aguarde o terminal mostrar que o serviço já está rodando na porta 8000
+
 
 ## Acessando o API via Swagger
 
