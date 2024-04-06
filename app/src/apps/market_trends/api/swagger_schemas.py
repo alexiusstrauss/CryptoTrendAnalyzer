@@ -33,9 +33,15 @@ CURRENCY_DATA_SCHEMA = {
             schema=openapi.Schema(
                 type=openapi.TYPE_OBJECT,
                 properties={
-                    "timestamp": openapi.Schema(type=openapi.TYPE_INTEGER, description="Unix Timestamp of the data point"),
-                    "mms": openapi.Schema(type=openapi.TYPE_NUMBER, format="float", description="Moving Average value based on the specified range"),
-                }
+                    "timestamp": openapi.Schema(
+                        type=openapi.TYPE_INTEGER, description="Unix Timestamp of the data point"
+                    ),
+                    "mms": openapi.Schema(
+                        type=openapi.TYPE_NUMBER,
+                        format="float",
+                        description="Moving Average value based on the specified range",
+                    ),
+                },
             ),
         ),
         404: openapi.Response(
@@ -43,10 +49,12 @@ CURRENCY_DATA_SCHEMA = {
             schema=openapi.Schema(
                 type=openapi.TYPE_OBJECT,
                 properties={
-                    "detail": openapi.Schema(type=openapi.TYPE_STRING, description="Error message explaining the pair is not found or not supported."),
-                }
+                    "detail": openapi.Schema(
+                        type=openapi.TYPE_STRING,
+                        description="Error message explaining the pair is not found or not supported.",
+                    ),
+                },
             ),
         ),
     },
-
 }

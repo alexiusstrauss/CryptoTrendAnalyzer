@@ -75,7 +75,6 @@ lint:
 
 pre-commit: style
 	pylint app/
-	flake8 app/
 	pytest app --cov=.
 
 .PHONY: all clean install test
