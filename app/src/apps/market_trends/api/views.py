@@ -1,4 +1,3 @@
-from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
 from rest_framework.response import Response
@@ -25,12 +24,10 @@ class CurrencyDataViewSet(viewsets.ReadOnlyModelViewSet):
         return (pair, from_date, to_date, range_value), None
 
     def get_queryset(self):
-        params, error = self.get_params()
-        if error:
-            return CurrencyData.objects.none()
-
-        pair, from_date, to_date, range_value = params
-        return CurrencyDataService.filter_data(pair, from_date, to_date, range_value)
+        params, _ = self.get_params()
+        if params:
+            pair, from_date, to_date, range_value = params
+            return CurrencyDataService.filter_data(pair, from_date, to_date, range_value)
 
     @swagger_auto_schema(**CURRENCY_DATA_SCHEMA)
     def list(self, request, *args, **kwargs):
