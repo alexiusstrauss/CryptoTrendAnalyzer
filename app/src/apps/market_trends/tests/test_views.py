@@ -27,18 +27,14 @@ class CurrencyDataViewSetTests(APITestCase):
                 mms_20=12119.999395726,
                 mms_50=0,
                 mms_200=0,
-                timestamp=timezone.make_aware(
-                    datetime.datetime.fromtimestamp(1707966000), pytz.utc
-                ),
+                timestamp=timezone.make_aware(datetime.datetime.fromtimestamp(1707966000), pytz.utc),
             ),
             CurrencyData.objects.create(
                 pair="BRLBTC",
                 mms_20=12260.6985607045,
                 mms_50=0,
                 mms_200=0,
-                timestamp=timezone.make_aware(
-                    datetime.datetime.fromtimestamp(1708052400), pytz.utc
-                ),
+                timestamp=timezone.make_aware(datetime.datetime.fromtimestamp(1708052400), pytz.utc),
             ),
         ]
 

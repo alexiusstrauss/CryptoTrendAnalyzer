@@ -16,7 +16,5 @@ class CurrencyDataModelTests(TestCase):
             timestamp=test_timestamp,
         )
 
-        expected_object_name = (
-            f"{test_pair} - {test_timestamp.strftime('%d/%m/%Y %H:%M:%S')}"
-        )
+        expected_object_name = f"{test_pair} - {test_timestamp.strftime('%d/%m/%Y %H:%M:%S')}"
         self.assertEqual(str(currency_data), expected_object_name)

@@ -24,7 +24,9 @@ class CurrencyDataService:
             from_date_dt = datetime.fromtimestamp(int(from_date), pytz.UTC)
             to_date_dt = datetime.fromtimestamp(int(to_date), pytz.UTC)
         except ValueError as e:
-            raise ValidationError("Invalid timestamp format. Timestamps should be integers representing Unix timestamps.") from e
+            raise ValidationError(
+                "Invalid timestamp format. Timestamps should be integers representing Unix timestamps."
+            ) from e
 
         # Verificação de data maior que 365 dias, utilizando o UTC
         min_allowed_date = datetime.now(pytz.UTC) - timedelta(days=365)

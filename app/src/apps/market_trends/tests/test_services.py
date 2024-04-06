@@ -15,21 +15,13 @@ class CurrencyDataServiceTests(TestCase):
         para o início e fim com base na lógica definida.
         """
         # Executa o método que está sendo testado
-        start_unix_timestamp, end_unix_timestamp = (
-            CurrencyDataService.get_unix_timestamps()
-        )
+        start_unix_timestamp, end_unix_timestamp = CurrencyDataService.get_unix_timestamps()
 
         # Calcula os timestamps esperados para comparação
-        end_expected_datetime = datetime.combine(
-            datetime.now().date(), datetime.min.time()
-        )
+        end_expected_datetime = datetime.combine(datetime.now().date(), datetime.min.time())
         start_expected_datetime = end_expected_datetime - timedelta(days=367)
-        start_expected_unix_timestamp = int(
-            time.mktime(start_expected_datetime.timetuple())
-        )
-        end_expected_unix_timestamp = int(
-            time.mktime(end_expected_datetime.timetuple())
-        )
+        start_expected_unix_timestamp = int(time.mktime(start_expected_datetime.timetuple()))
+        end_expected_unix_timestamp = int(time.mktime(end_expected_datetime.timetuple()))
 
         # Compara os resultados
         self.assertEqual(start_unix_timestamp, start_expected_unix_timestamp)
@@ -41,9 +33,7 @@ class CurrencyDataServiceTests(TestCase):
         possuem um formato inválido.
         """
         with self.assertRaises(ValidationError) as context:
-            CurrencyDataService.filter_data(
-                "BRLBTC", "invalid_timestamp", "1609459200", "20"
-            )
+            CurrencyDataService.filter_data("BRLBTC", "invalid_timestamp", "1609459200", "20")
 
         self.assertIn("Invalid timestamp format", str(context.exception))
 
@@ -54,10 +44,6 @@ class CurrencyDataServiceTests(TestCase):
         """
         too_old_date = (datetime.now() - timedelta(days=366)).timestamp()
         with self.assertRaises(ValidationError) as context:
-            CurrencyDataService.filter_data(
-                "BRLBTC", str(int(too_old_date)), str(int(time.time())), "20"
-            )
+            CurrencyDataService.filter_data("BRLBTC", str(int(too_old_date)), str(int(time.time())), "20")
 
-        self.assertIn(
-            "From date cannot be more than 365 days in the past", str(context.exception)
-        )
+        self.assertIn("From date cannot be more than 365 days in the past", str(context.exception))

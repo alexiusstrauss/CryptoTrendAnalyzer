@@ -28,6 +28,7 @@ class CurrencyDataViewSet(viewsets.ReadOnlyModelViewSet):
         if params:
             pair, from_date, to_date, range_value = params
             return CurrencyDataService.filter_data(pair, from_date, to_date, range_value)
+        return CurrencyData.objects.none()
 
     @swagger_auto_schema(**CURRENCY_DATA_SCHEMA)
     def list(self, request, *args, **kwargs):
