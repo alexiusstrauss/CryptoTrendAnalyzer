@@ -28,7 +28,7 @@ setup:
 		echo "Arquivo .env criado na pasta app/"; \
 	fi
 
-build:
+build: setup
 	docker build -t cryptotrendanalyzer-api:latest .
 
 up: build
@@ -58,9 +58,6 @@ test-coverage:
 test-cov-report:
 	pytest -vvv app --cov-report html --cov=.
 
-
-flake8:
-	flake8 app
 
 makemigrations:
 	python app/manage.py makemigrations
