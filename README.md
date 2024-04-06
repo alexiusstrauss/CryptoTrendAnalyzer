@@ -1,4 +1,4 @@
-# Descrição do Projeto
+# CryptoTrendAnalyzer
 
 Este projeto tem como objetivo fornecer uma análise de tendências de criptomoedas, utilizando uma API desenvolvida com Django Rest Framework (DRF) e Postgres para o gerenciamento de dados.
 A aplicação oferece endpoints RESTful para interação com dados de criptomoedas, incluindo visualizações de tendências, preços atuais e históricos.
