@@ -1,6 +1,7 @@
 [run]
 omit =
     */migrations/*,
+    */settings/*,
     *migrations*,
     *tests*,
     *test_*,
@@ -11,13 +12,14 @@ omit =
     *asgi.py*,
     *wsgi*,
     *urls*,
+    *swagger_schemas*,
     *__init__.py*,
 
 source = src/
 data_file = .coverage
 
 [report]
-fail_under = 70
+fail_under = 75
 show_missing = False
 skip_covered = False
 sort = Cover
