@@ -22,6 +22,12 @@ clean:
 create-requirements:
 	pipenv requirements > contrib/requirements.txt
 
+setup:
+	@if [ ! -f app/.env ]; then \
+		cp ./contrib/.env-exemple app/.env; \
+		echo "Arquivo .env criado na pasta app/"; \
+	fi
+
 build:
 	docker build -t cryptotrendanalyzer-api:latest .
 
@@ -52,9 +58,6 @@ test-coverage:
 test-cov-report:
 	pytest -vvv app --cov-report html --cov=.
 
-
-flake8:
-	flake8 app
 
 makemigrations:
 	python app/manage.py makemigrations
