@@ -2,6 +2,7 @@ import time
 from datetime import datetime, timedelta
 
 import pandas as pd
+import pytz
 from django.db.models.query import QuerySet
 from django.utils import timezone
 from rest_framework.exceptions import ValidationError
@@ -17,25 +18,29 @@ RANGE_FIELD_MAPPING = {
 
 class CurrencyDataService:
     @staticmethod
-    def filter_data(pair: str, from_date_str: str, to_date_str: str, range_value: str) -> QuerySet:
+    def filter_data(pair: str, from_date: str, to_date: str, range_value: str) -> QuerySet:
+        # Converte as strings para inteiros e depois para objetos datetime com fuso horário UTC
         try:
-            from_date = datetime.strptime(from_date_str, "%Y-%m-%d")
-            to_date = datetime.strptime(to_date_str, "%Y-%m-%d")
+            from_date_dt = datetime.fromtimestamp(int(from_date), pytz.UTC)
+            to_date_dt = datetime.fromtimestamp(int(to_date), pytz.UTC)
         except ValueError as e:
-            raise ValidationError("Invalid date format. Please use YYYY-MM-DD.") from e
+            raise ValidationError("Invalid timestamp format. Timestamps should be integers representing Unix timestamps.") from e
 
-        min_allowed_date = datetime.now() - timedelta(days=365)
-        if from_date < min_allowed_date:
+        # Verificação de data maior que 365 dias, utilizando o UTC
+        min_allowed_date = datetime.now(pytz.UTC) - timedelta(days=365)
+        if from_date_dt < min_allowed_date:
             raise ValidationError("From date cannot be more than 365 days in the past.")
 
-        if field_name := RANGE_FIELD_MAPPING.get(range_value):
-            return CurrencyData.objects.filter(
-                pair=pair,
-                timestamp__gte=from_date,
-                timestamp__lte=to_date,
-            ).values("pair", field_name, "timestamp")
+        # Valida o valor do range
+        if range_value not in RANGE_FIELD_MAPPING:
+            raise ValidationError("Invalid range value. Allowed values are 20, 50, 200.")
 
-        raise ValidationError("Invalid range value. Allowed values are 20, 50, 200.")
+        # Busca os dados filtrados
+        return CurrencyData.objects.filter(
+            pair=pair,
+            timestamp__gte=from_date_dt,
+            timestamp__lte=to_date_dt,
+        )
 
     @staticmethod
     def get_unix_timestamps():
