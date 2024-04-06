@@ -28,7 +28,7 @@ setup:
 		echo "Arquivo .env criado na pasta app/"; \
 	fi
 
-build: setup
+build:
 	docker build -t cryptotrendanalyzer-api:latest .
 
 up: build
