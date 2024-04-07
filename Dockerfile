@@ -14,7 +14,7 @@ ENV PYTHONPATH $PROJECT_DIR/app:$PYTHONPATH
 
 RUN apt-get update -yy  \
     && apt-get upgrade -yy \
-    && apt-get install -yy libpq-dev git nano\
+    && apt-get install -yy libpq-dev git cron \
     && pip install --upgrade pip \
     && pip install --no-cache-dir pipenv
 

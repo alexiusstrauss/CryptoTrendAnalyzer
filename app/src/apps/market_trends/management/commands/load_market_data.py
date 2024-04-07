@@ -1,30 +1,46 @@
+import logging
+
 import pandas as pd
 import requests
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from requests.exceptions import RequestException
-from src.apps.market_trends.models import CurrencyData
+from src.apps.market_trends.models import CurrencyData, ExecutionLog
 from src.apps.market_trends.services import CurrencyDataService
+
+logger = logging.getLogger(__name__)
+MSG_WARNING = "Dias que não tem registros nos útimos 365 dias"
 
 
 class Command(BaseCommand):
     help = "Carrega dados históricos de criptomoedas e calcula médias móveis simples MMS"
 
-    def handle(self, *args, **kwargs):
+    def handle(self, *args, **kwargs):  # sourcery skip: extract-method
         pairs = ["BRLBTC", "BRLETH"]
         self.stdout.write(self.style.WARNING(f"Carregando dados históricos para gerar MMS dos pares: {pairs}. "))
+
         for pair in pairs:
+            log_entry = ExecutionLog(log=f"Processando dados do MMS de: {pair}.")
             try:
                 self.stdout.write(self.style.WARNING(f"Processando dados do MMS de: {pair}."))
                 self.process_pair(pair)
                 self.stdout.write(self.style.SUCCESS(f"Dados de MMS do {pair} carregadas com sucesso."))
+                log_entry.status = 200
+                log_entry.log += " Sucesso."
             except RequestException as e:
                 self.stdout.write(self.style.ERROR(f"Erro ao processar dados para o pair: {pair}: {e}"))
+                log_entry.status = 500
+                log_entry.log += f" Erro: {e}."
+                logger.warning("Erro ao processar dados para o pair: %s: %s", pair, e)
+            log_entry.save()
 
         if days_without_record := CurrencyDataService.check_days_without_records():
-            self.stdout.write(
-                self.style.ERROR(f"Dias que não tem registros nos útimos 365 dias: {days_without_record}")
-            )
+            log_msg = f"{MSG_WARNING} {days_without_record}"
+            log_status = 500
+            self.stdout.write(self.style.ERROR(log_msg))
+            logger.warning(log_msg)
+            log_entry = ExecutionLog(status=log_status, log=log_msg)
+            log_entry.save()
 
     def process_pair(self, pair):
         headers = {

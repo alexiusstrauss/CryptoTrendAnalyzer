@@ -16,3 +16,12 @@ class CurrencyData(models.Model):
 
     def __str__(self):
         return f"{self.pair} - {self.timestamp.strftime('%d/%m/%Y %H:%M:%S')}"
+
+
+class ExecutionLog(models.Model):
+    status = models.IntegerField(help_text="Status da execução (200 para sucesso, 500 para erro)")
+    log = models.TextField(help_text="Log detalhado da execução")
+    created_at = models.DateTimeField(auto_now_add=True, help_text="Data e hora da criação do registro")
+
+    def __str__(self):
+        return f"ExecutionLog {self.created_at} - Status {self.status}"

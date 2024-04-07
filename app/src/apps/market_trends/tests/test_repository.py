@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.utils import timezone
-from src.apps.market_trends.models import CurrencyData
+from src.apps.market_trends.models import CurrencyData, ExecutionLog
 
 
 class CurrencyDataModelTests(TestCase):
@@ -18,3 +18,14 @@ class CurrencyDataModelTests(TestCase):
 
         expected_object_name = f"{test_pair} - {test_timestamp.strftime('%d/%m/%Y %H:%M:%S')}"
         self.assertEqual(str(currency_data), expected_object_name)
+
+
+class ExecutionLogModelTest(TestCase):
+
+    def test_str_representation(self):
+        """Testa a representação em string do modelo ExecutionLog."""
+        time_now = timezone.now()
+        log = ExecutionLog(status=200, log="Teste de execução bem-sucedida", created_at=time_now)
+        expected_str = f"ExecutionLog {time_now} - Status 200"
+
+        self.assertEqual(str(log), expected_str)

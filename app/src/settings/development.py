@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "debug_toolbar",
+    "django_crontab",
     # Apps
     "src.apps.market_trends",
     "src.apps.system",
@@ -163,3 +164,30 @@ SWAGGER_SETTINGS = {
 
 # Especifica os esquemas permitidos no ambiente de desenvolvimento
 REST_FRAMEWORK_SCHEMAS = ["http"]
+
+
+# Configurações de Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'WARNING',
+            'class': 'logging.StreamHandler',
+            'stream': os.sys.stdout,
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+    },
+}
+
+
+CRONJOBS = [
+    ('0 * * * *', 'django.core.management.call_command', ['check_missing_days']),
+    ('0 * * * *', 'django.core.management.call_command', ['verify_and_load_data']),
+]
