@@ -35,8 +35,8 @@ Este projeto é orquestrado com Docker, simplificando tanto o desenvolvimento qu
 Para usuários Linux, é altamente recomendável utilizar o `make` para simplificar a execução de tarefas comuns através de aliases definidos no `Makefile`. Se o `make` não estiver instalado no seu sistema, você pode instalá-lo usando o seguinte comando:
 
 ```bash
-sudo apt-get update
-sudo apt-get install make
+sudo apt update
+sudo apt install make
 ```
 ## Usando comandos do Makefile
 
@@ -63,3 +63,13 @@ Para facilitar o desenvolvimento e a implantação, este projeto foi dockerizado
 
 Uma vez que a aplicação esteja rodando (via `make up` ou `make up-log`), você pode acessar a documentação interativa da API Swagger pelo seguinte URL: `http://localhost:8000/`.
 Isso permite que você visualize e interaja com os endpoints da API de forma fácil e intuitiva.
+
+
+## Rotinas de Monitoramento
+- Rode o comando: `make crontab-add` para adicionar as rotinas configuradas a serem executadas de hora em hora
+- Rode o comando: `make crontab-show` para vizualizar as rotinas no cron
+- Rode o comando: `make check-missing-days` para rodar a rotina e fazer a verificação se há algum dia ausente no intervalo de 365 dias.
+- Rode o comando: `make verify-makrket-data` para rodar a rotina e verificar se houve algum erro na carga dos dados da api do MB no dia.
+
+- A rotina está configurada para rodar de hora em hora, caso encontre algum erro de carga, será efetuado uma nova tentativa a cada hora.
+- A Rotina de verificação de dados ausentes no range de 365 dias, vai mostrar no log do terminal e salvar na tabela no banco os dias faltantes.

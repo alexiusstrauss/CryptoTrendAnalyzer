@@ -37,6 +37,18 @@ up: build
 up-log: up
 	docker logs -f cryptotrendanalyzer-api
 
+crontab-add:
+	docker exec -it cryptotrendanalyzer-api pipenv run python manage.py crontab add
+
+crontab-show:
+	docker exec -it cryptotrendanalyzer-api pipenv run python manage.py crontab show
+
+check-missing-days:
+	docker exec -it cryptotrendanalyzer-api pipenv run python manage.py check_missing_days
+
+verify-makrket-data:
+	docker exec -it cryptotrendanalyzer-api pipenv run python manage.py verify_and_load_data
+
 down:
 	docker compose down
 
