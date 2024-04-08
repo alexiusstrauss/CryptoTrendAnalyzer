@@ -62,20 +62,13 @@ logs-api:
 	docker logs -f cryptotrendanalyzer-api
 
 test:
-	pytest -v app
+	docker exec -it cryptotrendanalyzer-api pipenv run pytest
 
 test-coverage:
-	pytest app --cov=.
+	docker exec -it cryptotrendanalyzer-api pipenv run pytest --cov=.
 
 test-cov-report:
-	pytest -vvv app --cov-report html --cov=.
-
-
-makemigrations:
-	python app/manage.py makemigrations
-
-migrate:
-	python app/manage.py migrate
+	docker exec -it cryptotrendanalyzer-api pipenv run pytest -vvv --cov-report html --cov=.
 
 
 isort:
@@ -88,8 +81,17 @@ style:  ## Run isort and black auto formatting code style in the project
 lint:
 	pylint app/
 
-pre-commit: style
-	pylint app/
-	pytest app --cov=.
+pre-commit:
+	@echo "Executando verificação de estilo e testes de cobertura..."
+	@{ \
+		make style && \
+		make test-coverage; \
+	} || { \
+		echo "Erro ao validar o código ou testes"; \
+		exit 1; \
+	}
+	@echo "Validação efetuada com sucesso"
+
+
 
 .PHONY: all clean install test
