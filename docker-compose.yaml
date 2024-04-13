@@ -1,4 +1,3 @@
-version: "3.3"
 services:
   db:
     image: postgres:15
@@ -27,7 +26,6 @@ services:
       pipenv run python manage.py migrate --noinput &&
       pipenv run python manage.py load_market_data &&
       pipenv run python manage.py runserver 0.0.0.0:8000"
-    # command: tail -f /dev/null
     volumes:
       - ./app:/app
     ports:
@@ -35,8 +33,7 @@ services:
     networks:
       - cryptotrendanalyzer-net
     healthcheck:
-      test:
-        ["CMD-SHELL", "curl -f http://localhost:8000/api/healthcheck || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/api/healthcheck || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3

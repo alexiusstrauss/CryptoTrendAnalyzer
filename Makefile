@@ -32,7 +32,7 @@ build:
 	docker build -t cryptotrendanalyzer-api:latest .
 
 up: build
-	docker compose up -d
+	$(COMPOSE_COMMAND) up -d
 
 up-log: up
 	docker logs -f cryptotrendanalyzer-api
@@ -50,7 +50,7 @@ verify-makrket-data:
 	docker exec -it cryptotrendanalyzer-api pipenv run python manage.py verify_and_load_data
 
 down:
-	docker compose down
+	$(COMPOSE_COMMAND) down
 
 up-localy:
 	python app/manage.py runserver
@@ -70,11 +70,10 @@ test-coverage:
 test-cov-report:
 	docker exec -it cryptotrendanalyzer-api pipenv run pytest -vvv --cov-report html --cov=.
 
-
 isort:
 	@isort -m 3 --trailing-comma --use-parentheses --honor-noqa  app/. --verbose --diff
 
-style:  ## Run isort and black auto formatting code style in the project
+style:
 	@isort -m 3 --trailing-comma --use-parentheses --honor-noqa  app/.
 	@black -S -t py37 -l 120 app/. --exclude '/(\.git|\.venv|env|venv|build|dist)/'
 
@@ -91,7 +90,5 @@ pre-commit:
 		exit 1; \
 	}
 	@echo "Validação efetuada com sucesso"
-
-
 
 .PHONY: all clean install test
