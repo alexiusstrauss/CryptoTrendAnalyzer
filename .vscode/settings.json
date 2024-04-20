@@ -7,25 +7,6 @@
     ],
     "python.linting.pylintEnabled": false,
     "python.linting.enabled": true,
-    "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#7b13e4",
-        "activityBar.background": "#7b13e4",
-        "activityBar.foreground": "#e7e7e7",
-        "activityBar.inactiveForeground": "#e7e7e799",
-        "activityBarBadge.background": "#3b2005",
-        "activityBarBadge.foreground": "#e7e7e7",
-        "commandCenter.border": "#e7e7e799",
-        "sash.hoverBorder": "#7b13e4",
-        "statusBar.background": "#620fb5",
-        "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#7b13e4",
-        "statusBarItem.remoteBackground": "#620fb5",
-        "statusBarItem.remoteForeground": "#e7e7e7",
-        "titleBar.activeBackground": "#620fb5",
-        "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.inactiveBackground": "#620fb599",
-        "titleBar.inactiveForeground": "#e7e7e799"
-    },
     "peacock.remoteColor": "#620fb5",
     "extensions": {
         "recommendations": [
@@ -37,6 +18,26 @@
         "app"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#0a667f",
+        "activityBar.background": "#0a667f",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#590747",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "commandCenter.border": "#e7e7e799",
+        "sash.hoverBorder": "#0a667f",
+        "statusBar.background": "#064050",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#0a667f",
+        "statusBarItem.remoteBackground": "#064050",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#064050",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#06405099",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#064050"
 
 }
