@@ -2,7 +2,7 @@ SHELL := /bin/bash
 FILES=$(shell docker ps -a -q --filter "name=cryptotrendanalyzer*")
 
 # Verifica versao do docker compose.
-COMPOSE_COMMAND=$(shell command -v docker-compose >/dev/null 2>&1 && echo "docker-compose" || echo "docker compose")
+COMPOSE_COMMAND=$(shell command -v docker-compose >/dev/null 2>&1 && echo "docker compose" || echo "docker compose")
 
 clean:
 	@find . -name '*.pyc' -exec rm -rf {} \;
